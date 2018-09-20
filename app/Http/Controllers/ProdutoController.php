@@ -41,6 +41,8 @@ class ProdutoController extends Controller
             }else{
                 return redirect()->route('produtos.create')->with('error', 'Erro ao cadastrar o produto!');
             }
+        }else{
+            $produto->foto = '';
         }
         $produto->save();
         return redirect()->route('produtos')->with('status', 'Produto criado com sucesso!');
@@ -69,7 +71,7 @@ class ProdutoController extends Controller
 
     public function deleteProduto($id){
         $produto = Produto::find($id);
-        if(isset($produto->foto)){
+        if(isset($produto->foto) && !empty($produto->foto)){
             $file = explode('/',$produto->foto);
             Storage::delete($file[1].'/'.$file[2]);
         }

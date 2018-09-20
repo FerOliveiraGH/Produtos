@@ -18,15 +18,15 @@
                         <table>
                             <tr>
                                 <td><label>Nome:</label></td>
-                                <td><input name="nome"></td>
+                                <td><input name="nome" required></td>
                             </tr>
                             <tr>
                                 <td><label>Descrição:</label></td>
-                                <td><input name="descricao"></td>
+                                <td><input name="descricao" required></td>
                             </tr>
                             <tr>
                                 <td><label>Preço:</label></td>
-                                <td><input name="valor"></td>
+                                <td><input name="valor" type="number" required></td>
                             </tr>
                             <tr>
                                 <td><label>Foto:</label></td>

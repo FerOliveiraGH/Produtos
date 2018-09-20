@@ -19,15 +19,15 @@
                         <table>
                             <tr>
                                 <td><label>Nome:</label></td>
-                                <td><input name="nome" value="{{ $produto->nome }}"></td>
+                                <td><input name="nome" value="{{ $produto->nome }}" required></td>
                             </tr>
                             <tr>
                                 <td><label>Descrição:</label></td>
-                                <td><input name="descricao" value="{{ $produto->descricao }}"></td>
+                                <td><input name="descricao" value="{{ $produto->descricao }}" required></td>
                             </tr>
                             <tr>
                                 <td><label>Preço:</label></td>
-                                <td><input name="valor" type="number" value="{{ $produto->valor }}"></td>
+                                <td><input name="valor" type="number" value="{{ $produto->valor }}" required></td>
                             </tr>
                             <tr>
                                 <td><label>Foto:</label></td>
