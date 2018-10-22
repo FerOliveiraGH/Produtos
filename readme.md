@@ -1,5 +1,6 @@
 <p>Desenvolvido por Fernando Oliveira</p>
-<p>Sistema para cadastro de Produtos</p>
+<p>Sistema para cadastro de produtos</p>
+<p><a href="http://feroliveira.com.br">feroliveira.com.br</a></p>
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
