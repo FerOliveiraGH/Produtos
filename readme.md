@@ -1,3 +1,6 @@
+<p>Desenvolvido por Fernando Oliveira</p>
+<p>Sistema para cadastro de Produtos</p>
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
