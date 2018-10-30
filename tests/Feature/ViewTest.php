@@ -39,12 +39,13 @@ class ViewTest extends TestCase
         $produtos_create = $this->actingAs($user)
                                 ->get('/produtos/create');
         $produtos_create->assertStatus(200);
-//        
-//        $data = factory(\App\Produto::class,1)->create();
-//        
-//        $produtos_edit = $this->actingAs($user)
-//                                ->get('produtos/edit/1');
-//        $produtos_edit->assertStatus(200);
         
+    }
+    public function testStore() {
+        $user = factory(\App\User::class)->create();
+        $data = ['nome'=>'teste','descricao'=>'teste','valor'=>'123'];
+        $response = $this->actingAs($user)->post('/produtos/store',$data);
+        $response->assertStatus(302);
+        $response->assertRedirect('produtos');
     }
 }
