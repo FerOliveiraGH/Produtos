@@ -47,5 +47,6 @@ class ViewTest extends TestCase
         $response = $this->actingAs($user)->post('/produtos/store',$data);
         $response->assertStatus(302);
         $response->assertRedirect('produtos');
+        $this->assertDatabaseHas('produtos', $data);
     }
 }
