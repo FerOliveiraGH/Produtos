@@ -72,7 +72,7 @@ class ProdutosController extends Controller
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
                 "X-API-KEY: 64e15360a9abf5b72a8496f3e9d610fe",
-                "X-APP-KEY: jup8uJAphug5zAv2NuteyakukazEres",
+                "X-APP-KEY: jup8uJAphug5zAv2NuteyakukazEre",
             ),
         ));
 
