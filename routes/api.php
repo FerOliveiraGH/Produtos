@@ -18,4 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('produtos', 'ProdutosController');
+Route::get('produtosxtech', 'ProdutosController@getProdutosXtech');
+Route::get('produtoxtech', 'ProdutosController@getProdutoXtech');
 
