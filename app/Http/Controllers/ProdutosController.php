@@ -34,7 +34,7 @@ class ProdutosController extends Controller
 
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
-                "X-API-KEY: 64e15360a9abf5b72a8496f3e9d610fe",
+                "X-API-KEY: c9f0d46f9ba3f7fdcab1098bb0389954",
                 "X-APP-KEY: jup8uJAphug5zAv2NuteyakukazEre",
             ),
         ));
@@ -44,16 +44,20 @@ class ProdutosController extends Controller
 
         curl_close($curl);
 
+        $data = json_decode($response);
+        print_r($data[0]);exit;
+
         if ($err) {
             return "cURL Error #:" . $err;
         } else {
             if(isset(json_decode($response)->error)){
-                return response()->json(json_decode($response), 401);
+                return response()->json(json_decode($response,true), 401);
             }else{
-                return response()->json(json_decode($response), 200);
+                return response()->json(json_decode($response,true), 200);
             }
         }
     }
+
     public function getProdutoXtech(){
         $curl = curl_init();
 
@@ -62,16 +66,17 @@ class ProdutosController extends Controller
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_CONNECTTIMEOUT => 1,
             CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
+            CURLOPT_MAXREDIRS => 0,
+            CURLOPT_TIMEOUT => 10,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_POSTFIELDS => "",
 
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/json",
-                "X-API-KEY: 64e15360a9abf5b72a8496f3e9d610fe",
+                "X-API-KEY: c9f0d46f9ba3f7fdcab1098bb0389954",
                 "X-APP-KEY: jup8uJAphug5zAv2NuteyakukazEre",
             ),
         ));
@@ -81,13 +86,17 @@ class ProdutosController extends Controller
 
         curl_close($curl);
 
+        $data = (Object)json_decode($response,true);
+//        $data = (Object)['id'=>'teste'];
+
+        print_r($data->id);exit;
         if ($err) {
             return "cURL Error #:" . $err;
         } else {
             if(isset(json_decode($response)->error)){
-                return response()->json(json_decode($response), 401);
+                return response()->json(json_decode($response,true),401);
             }else{
-                return response()->json(json_decode($response), 200);
+                return response()->json(json_decode($response,true),200);
             }
         }
     }

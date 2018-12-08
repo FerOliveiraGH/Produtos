@@ -13,9 +13,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div class="col-md-12" style="padding: 20px;">
-                        <a href="produtos/create"><button class="btn-default btn" >Cadastrar</button></a>
-                    </div>
                     @forelse($produtos as $produto)
                         <div class="col-md-3 text-center">
                             <div class="row">

@@ -18,7 +18,17 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <a href="produtos"><button class="btn-default btn" >Produtos</button></a>
+                    <div class="col-md-6 text-center">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Controle de produtos</h4>
+                            </div>
+                            <div class="col-md-12">
+                                <a href="produtos"><button class="btn-default btn" >Lista</button></a>
+                                <a href="produtos/create"><button class="btn-default btn" >Cadastrar</button></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
