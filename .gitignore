@@ -13,3 +13,4 @@ yarn-error.log
 /nbproject/private/
 composer.lock
 .env.testing
+.phpunit.result.cache
