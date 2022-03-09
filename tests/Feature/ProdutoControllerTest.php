@@ -9,7 +9,11 @@ class ProdutoControllerTest extends TestCase
     {
         $controller = new ProdutoController();
         $response = $controller->index();
+        $data = $response->getData();
 
-        $this->assertTrue($response);
+        $this->assertNotEmpty($data);
+        $this->assertIsArray($data);
+        $this->assertArrayHasKey('produtos', $data);
+        $this->assertArrayHasKey('data', $data['produtos']);
     }
 }
