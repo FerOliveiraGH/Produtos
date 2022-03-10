@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
-class Produto extends Model
+class ProductModel extends Model
 {
+    protected $table = 'produtos';
+    
     use Notifiable;
     use SoftDeletes;
 

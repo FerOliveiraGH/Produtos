@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\ProductModel;
+use App\UseCases\Products\ProductsBusiness;
 use Illuminate\Http\Request;
-use App\Produto;
 use Illuminate\Support\Facades\Storage;
 
 class ProdutoController extends Controller
 {
-    public function __construct()
+    private ProductsBusiness $business;
+    
+    public function __construct(ProductsBusiness $business)
     {
         $this->middleware('auth');
+        $this->business = $business;
     }
 
     function index(){
-        $produtos = Produto::orderBy('created_at', 'desc')->paginate(10);
+        $produtos = ProductModel::query()->orderBy('created_at', 'desc')->paginate(10);
         return view('produtos', ['produtos' => $produtos]);
     }
 
@@ -23,37 +27,39 @@ class ProdutoController extends Controller
     }
 
     function editProduto($id){
-        $produto = Produto::find($id);
+        $produto = ProductModel::find($id);
         return view('edit',['produto'=>$produto]);
     }
 
-    public function storeProduto(Request $request)
+    public function storeProduto(Request $request): bool
     {
-        $path = 'storage/fotos/';
-        $produto = new Produto;
-        $produto->nome = $request->nome;
-        $produto->descricao = $request->descricao;
-        $produto->valor = $request->valor;
-
-        if (isset($request->foto)) {
-            $foto = auth()->user()->id . '-' . time() . '-' . $request->foto->getClientOriginalName();
-            $upload = $request->foto->storeAs('fotos', $foto);
-            if ($upload) {
-                $produto->foto = $path . $foto;
-            } else {
-                return redirect()->route('produtos.create')->with('error', 'Erro ao cadastrar o produto!');
-            }
-        } else {
-            $produto->foto = '';
-        }
-        $produto->save();
-        return redirect()->route('produtos')->with('status', 'Produto criado com sucesso!');
+        return $this->business->saveProduct($request->all());
+        
+//        $path = 'storage/fotos/';
+//        $produto = new Produto;
+//        $produto->nome = $request->nome;
+//        $produto->descricao = $request->descricao;
+//        $produto->valor = $request->valor;
+//
+//        if (isset($request->foto)) {
+//            $foto = auth()->user()->id . '-' . time() . '-' . $request->foto->getClientOriginalName();
+//            $upload = $request->foto->storeAs('fotos', $foto);
+//            if ($upload) {
+//                $produto->foto = $path . $foto;
+//            } else {
+//                return redirect()->route('produtos.create')->with('error', 'Erro ao cadastrar o produto!');
+//            }
+//        } else {
+//            $produto->foto = '';
+//        }
+//        $produto->save();
+//        return redirect()->route('produtos')->with('status', 'Produto criado com sucesso!');
     }
 
     public function updateProduto(Request $request)
     {
         $path = 'storage/fotos/';
-        $produto = Produto::findOrFail($request->id);
+        $produto = ProductModel::findOrFail($request->id);
         $produto->nome = $request->nome;
         $produto->descricao = $request->descricao;
         $produto->valor = $request->valor;
@@ -75,7 +81,7 @@ class ProdutoController extends Controller
     }
 
     public function deleteProduto($id){
-        $produto = Produto::find($id);
+        $produto = ProductModel::find($id);
         if(isset($produto->foto) && !empty($produto->foto)){
             $file = explode('/',$produto->foto);
             Storage::delete($file[1].'/'.$file[2]);

@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\ProductModel;
 use Illuminate\Http\Request;
-use App\Produto;
-use Illuminate\Support\Facades\Storage;
 
 class ProdutosController extends Controller
 {
 
-    function index(Produto $produto){
+    function index(ProductModel $produto){
        return $produto->all();
     }
 
-    function show(Produto $produto){
+    function show(ProductModel $produto){
        return $produto;
     }
 
@@ -101,17 +100,17 @@ class ProdutosController extends Controller
         }
     }
 
-    function store(Request $request,Produto $produto){
+    function store(Request $request, ProductModel $produto){
         $data = $produto->create($request->all());
         return $data;
     }
 
-    function update(Request $request, Produto $produto){
+    function update(Request $request, ProductModel $produto){
         $produto->update($request->all());
         return $produto;
     }
 
-    public function destroy(Produto $produto){
+    public function destroy(ProductModel $produto){
         $produto->delete();
         return $produto;
     }
