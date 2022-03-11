@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\Products\ProductsModel;
 use App\Business\Products\ProductsBusiness;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductsController extends Controller
