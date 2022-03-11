@@ -14,7 +14,7 @@
             - Controllers
             - Repositories
             - Models
-        - Domain
+        - Domain (Entities)
             Products
 
 ### Instalar
