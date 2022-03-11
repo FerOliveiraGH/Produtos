@@ -10,12 +10,12 @@
     - app
         - Business (UseCases)
             - Products
+        - Domain (Entities)
+            Products
         - Http (Infra)
             - Controllers
             - Repositories
             - Models
-        - Domain (Entities)
-            Products
 
 ### Instalar
     - composer run-script install
