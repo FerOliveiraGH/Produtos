@@ -1,5 +1,5 @@
 ## Software para cadastro de produtos.
-- Este software tem como objetivo implementar o padrão Clean Architecture no framework Laravel 8.0.
+- Este software tem como objetivo implementar o modelo Clean Architecture no framework Laravel 8.0.
 
 ### Pacotes
  - PHP 7.4
