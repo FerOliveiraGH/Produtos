@@ -4,6 +4,7 @@ namespace App\Business\Products;
 
 use App\Domain\Products\Picture;
 use App\Domain\Products\Product;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ProductsBusiness
@@ -32,9 +33,9 @@ class ProductsBusiness
         return $this->repository->update($this->mountProduct($product));
     }
 
-    private function deleteCurrentPicture(&$dto)
+    private function deleteCurrentPicture($dto)
     {
-        if (empty($dto['foto'])) {
+        if (!$dto['foto'] instanceof UploadedFile || empty($dto['foto_atual'])) {
             return;
         }
 

@@ -2,13 +2,15 @@
 
 namespace App\Domain\Products;
 
+use Illuminate\Http\UploadedFile;
+
 class Picture
 {
     private string $nome;
     
     public function __construct($foto)
     {
-        if (empty($foto) || is_string($foto)) {
+        if (!$foto instanceof UploadedFile) {
             $this->nome = $foto ?? '';
             return;
         }
