@@ -8,8 +8,9 @@ class Picture
     
     public function __construct($foto)
     {
-        if (empty($foto)) {
-            $this->nome = '';
+        if (empty($foto) || is_string($foto)) {
+            $this->nome = $foto ?? '';
+            return;
         }
     
         $path = 'storage/fotos/';

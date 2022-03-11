@@ -32,6 +32,7 @@
                             <tr>
                                 <td><label>Foto:</label></td>
                                 <td><input type='file' name="foto" accept="image/*"/></td>
+                                <input name="foto_atual" type="hidden" value="{{ $produto->foto_atual }}">
                             </tr>
                         </table>
                         <input type="submit" class="btn-default btn" value="Salvar">
