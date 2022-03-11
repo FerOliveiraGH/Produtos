@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ViewTest extends TestCase
 {
-    use DatabaseMigrations;
+//    use DatabaseMigrations;
     /**
      * A basic test example.
      *

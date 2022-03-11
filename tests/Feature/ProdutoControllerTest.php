@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\ProdutoController;
-use App\Http\Models\ProductModel;
-use App\Http\Repositories\ProductRepository;
-use App\UseCases\Products\ProductsBusiness;
+use App\Http\Controllers\ProductsController;
+use App\Http\Models\Products\ProductsModel;
+use App\Http\Repositories\Products\ProductsRepository;
+use App\Business\Products\ProductsBusiness;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -14,8 +14,8 @@ class ProdutoControllerTest extends TestCase
 {
     public function testObterProduto()
     {
-        $controller = new ProdutoController(new ProductsBusiness(new ProductRepository(new ProductModel())));
-        $response = $controller->index();
+        $controller = new ProductsController(new ProductsBusiness(new ProductsRepository(new ProductsModel())));
+        $response = $controller->viewProducts();
         $data = $response->getData();
 
         $this->assertNotEmpty($data);
@@ -25,14 +25,14 @@ class ProdutoControllerTest extends TestCase
 
     public function testSalvarProduto()
     {
-        $controller = new ProdutoController(new ProductsBusiness(new ProductRepository(new ProductModel())));
+        $controller = new ProductsController(new ProductsBusiness(new ProductsRepository(new ProductsModel())));
         $request = new Request([
             'nome' => uniqid(),
             'descricao' => 'teste',
             'valor' => '123',
             'foto' => ''
         ]);
-        $response = $controller->storeProduto($request);
+        $response = $controller->createProduct($request);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }

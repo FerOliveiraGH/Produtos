@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Models\ProductModel;
-use App\UseCases\Products\ProductsBusiness;
+use App\Http\Models\Products\ProductsModel;
+use App\Business\Products\ProductsBusiness;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProdutoController extends Controller
+class ProductsController extends Controller
 {
     private ProductsBusiness $business;
 
@@ -19,27 +19,27 @@ class ProdutoController extends Controller
         $this->business = $business;
     }
 
-    function index()
+    function viewProducts()
     {
-        $produtos = ProductModel::query()->orderBy('created_at', 'desc')->paginate(10);
+        $produtos = ProductsModel::query()->orderBy('created_at', 'desc')->paginate(10);
         return view('produtos', ['produtos' => $produtos]);
     }
 
-    function createProduto()
+    function viewCreateProduct()
     {
         return view('create');
     }
 
-    function editProduto($id)
+    function viewEditProduct($id)
     {
-        $produto = ProductModel::find($id);
+        $produto = ProductsModel::find($id);
         $produto['foto_atual'] = $produto['foto'] ?? '';
         return view('edit', ['produto' => $produto]);
     }
 
-    public function storeProduto(Request $request): RedirectResponse
+    public function createProduct(Request $request): RedirectResponse
     {
-        if (!$this->business->saveProduct($request->all())) {
+        if (!$this->business->createProduct($request->all())) {
             return redirect()
                 ->route('produtos.create', '', Response::HTTP_BAD_REQUEST)
                 ->with('error', 'Erro ao cadastrar o produto!');
@@ -47,10 +47,10 @@ class ProdutoController extends Controller
 
         return redirect()
             ->route('produtos', '', Response::HTTP_CREATED)
-            ->with('status', 'Produto criado com sucesso!');
+            ->with('status', 'Product criado com sucesso!');
     }
 
-    public function updateProduto(Request $request)
+    public function updateProduct(Request $request): RedirectResponse
     {
         if (!$this->business->updateProduct($request->all())) {
             return redirect()
@@ -60,12 +60,12 @@ class ProdutoController extends Controller
 
         return redirect()
             ->route('produtos')
-            ->with('status', 'Produto atualizado com sucesso!');
+            ->with('status', 'Product atualizado com sucesso!');
     }
 
-    public function deleteProduto($id)
+    public function deleteProduct($id): RedirectResponse
     {
-        $produto = ProductModel::find($id);
+        $produto = ProductsModel::find($id);
         if (isset($produto->foto) && !empty($produto->foto)) {
             $file = explode('/', $produto->foto);
             Storage::delete($file[1] . '/' . $file[2]);

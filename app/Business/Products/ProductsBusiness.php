@@ -1,31 +1,29 @@
 <?php
 
-namespace App\UseCases\Products;
+namespace App\Business\Products;
 
-use App\Domain\Entities\Picture;
-use App\Domain\Entities\Product;
-use App\Http\Repositories\ProductRepository;
-use Illuminate\Database\Eloquent\Model;
+use App\Domain\Products\Picture;
+use App\Domain\Products\Product;
 use Illuminate\Support\Facades\Storage;
 
 class ProductsBusiness
 {
-    private ProductRepository $repository;
+    private IProductsRepository $repository;
     
-    public function __construct(ProductRepository $repository)
+    public function __construct(IProductsRepository $repository)
     {
         $this->repository = $repository;
     }
     
-    public function saveProduct(array $dto): ?Model
+    public function createProduct(array $dto): array
     {
         $picture = new Picture($dto['foto']);
         $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
         
-        return $this->repository->save($this->mountProduct($product));
+        return $this->repository->create($this->mountProduct($product));
     }
 
-    public function updateProduct(array $dto)
+    public function updateProduct(array $dto): int
     {
         $this->deleteCurrentPicture($dto);
         $picture = new Picture($dto['foto'] ?? $dto['foto_atual'] ?? '');
