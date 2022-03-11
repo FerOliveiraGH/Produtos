@@ -17,4 +17,8 @@
         - Domain
             Products
 
+### Instalar
+    - composer run-script install
+    - php artisan serve
+
 Fernando Oliveira - [feroliveira.com.br](http://feroliveira.com.br)

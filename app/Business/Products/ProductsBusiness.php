@@ -17,6 +17,17 @@ class ProductsBusiness
         $this->repository = $repository;
     }
 
+    public function getProduct(int $id): array
+    {
+        $product = $this->repository->getProduct($id);
+        
+        if (!empty($product)) {
+            $product['foto_atual'] = $product['foto'] ?? '';
+        }
+        
+        return $product;
+    }
+    
     public function getProducts(): Paginator
     {
         return $this->repository->getProducts();
@@ -32,20 +43,30 @@ class ProductsBusiness
 
     public function updateProduct(array $dto): int
     {
-        $this->deleteCurrentPicture($dto);
+        $this->deleteCurrentPicture($dto['foto_atual']);
+        
         $picture = new Picture($dto['foto'] ?? $dto['foto_atual'] ?? '');
         $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
 
         return $this->repository->update($this->mountProduct($product));
     }
-
-    private function deleteCurrentPicture($dto)
+    
+    public function deleteProduct(int $id): ?bool
     {
-        if (!$dto['foto'] instanceof UploadedFile || empty($dto['foto_atual'])) {
+        $product = $this->repository->getProduct($id);
+        
+        $this->deleteCurrentPicture($product['foto']);
+
+        return $this->repository->delete($id);
+    }
+
+    private function deleteCurrentPicture($foto)
+    {
+        if (empty($foto)) {
             return;
         }
 
-        $file = explode('/', $dto['foto_atual']);
+        $file = explode('/', $foto);
         Storage::delete($file[1] . '/' . $file[2]);
     }
     

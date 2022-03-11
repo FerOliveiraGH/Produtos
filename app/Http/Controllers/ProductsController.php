@@ -32,9 +32,8 @@ class ProductsController extends Controller
 
     function viewEditProduct($id)
     {
-        $produto = ProductsModel::find($id);
-        $produto['foto_atual'] = $produto['foto'] ?? '';
-        return view('edit', ['produto' => $produto]);
+        $product = $this->business->getProduct($id);
+        return view('edit', ['produto' => $product]);
     }
 
     public function createProduct(Request $request): RedirectResponse
@@ -65,12 +64,14 @@ class ProductsController extends Controller
 
     public function deleteProduct($id): RedirectResponse
     {
-        $produto = ProductsModel::find($id);
-        if (isset($produto->foto) && !empty($produto->foto)) {
-            $file = explode('/', $produto->foto);
-            Storage::delete($file[1] . '/' . $file[2]);
+        if (!$this->business->deleteProduct($id)) {
+            return redirect()
+                ->route('produtos', '', Response::HTTP_BAD_REQUEST)
+                ->with('error', 'Erro ao remover o produto!');
         }
-        $produto->delete();
-        return redirect()->route('produtos')->with('status', 'Removido com sucesso!');
+        
+        return redirect()
+            ->route('produtos')
+            ->with('status', 'Produto removido com sucesso!');
     }
 }

@@ -15,6 +15,17 @@ class ProductsRepository implements IProductsRepository
         $this->model = $model;
     }
     
+    public function getProduct(int $id): array
+    {
+        $response =  $this->model->newQuery()->find($id);
+        
+        if (empty($response)) {
+            return [];
+        }
+    
+        return $response->toArray();
+    }
+    
     public function getProducts(): Paginator
     {
         return $this->model->newQuery()
@@ -36,5 +47,12 @@ class ProductsRepository implements IProductsRepository
     public function update(array $dto): int
     {
         return $this->model->newQuery()->update($dto);
+    }
+    
+    public function delete(int $id): ?bool
+    {
+        return $this->model->newQuery()
+            ->where('id', $id)
+            ->delete();
     }
 }

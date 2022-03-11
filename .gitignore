@@ -14,3 +14,4 @@ yarn-error.log
 composer.lock
 .env.testing
 .phpunit.result.cache
+*.sqlite
