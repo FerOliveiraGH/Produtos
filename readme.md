@@ -11,7 +11,7 @@
         - Business (UseCases)
             - Products
         - Domain (Entities)
-            Products
+            - Products
         - Http (Infra)
             - Controllers
             - Repositories
