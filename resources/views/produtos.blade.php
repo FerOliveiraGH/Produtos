@@ -29,7 +29,7 @@
                                     Preço: $ {{ $produto->valor }}
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="produtos/edit/{{ $produto->id }}"><button class="btn btn-sm btn-default">Editar</button></a> <a href="produtos/delete/{{ $produto->id }}"><button class="btn btn-sm btn-default">Excluir</button></a> </p>
+                                    <a href="produtos/edit/{{ $produto->id }}"><button class="btn btn-sm btn-default">Editar</button></a> <a href="produtos/delete/{{ $produto->id }}"><button class="btn btn-sm btn-default">Excluir</button></a>
                                 </div>
                             </div>
                         </div>

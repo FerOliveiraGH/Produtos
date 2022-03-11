@@ -4,6 +4,7 @@ namespace App\Http\Repositories\Products;
 
 use App\Business\Products\IProductsRepository;
 use App\Http\Models\Products\ProductsModel;
+use Illuminate\Contracts\Pagination\Paginator;
 
 class ProductsRepository implements IProductsRepository
 {
@@ -14,6 +15,13 @@ class ProductsRepository implements IProductsRepository
         $this->model = $model;
     }
     
+    public function getProducts(): Paginator
+    {
+        return $this->model->newQuery()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+    }
+
     public function create(array $dto): array
     {
         $response = $this->model->newQuery()->create($dto);

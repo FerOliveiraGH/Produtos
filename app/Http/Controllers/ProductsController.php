@@ -21,8 +21,8 @@ class ProductsController extends Controller
 
     function viewProducts()
     {
-        $produtos = ProductsModel::query()->orderBy('created_at', 'desc')->paginate(10);
-        return view('produtos', ['produtos' => $produtos]);
+        $products = $this->business->getProducts();
+        return view('produtos', ['produtos' => $products]);
     }
 
     function viewCreateProduct()

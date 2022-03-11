@@ -4,6 +4,7 @@ namespace App\Business\Products;
 
 use App\Domain\Products\Picture;
 use App\Domain\Products\Product;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,6 +15,11 @@ class ProductsBusiness
     public function __construct(IProductsRepository $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function getProducts(): Paginator
+    {
+        return $this->repository->getProducts();
     }
     
     public function createProduct(array $dto): array
