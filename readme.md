@@ -6,7 +6,11 @@
  - Laravel 8.0
  - Composer 2
 
-### Estrutura
+### Instalar
+    - composer run-script install
+    - php artisan serve
+
+### Estrutura de Pastas
     - app
         - Business (UseCases)
             - Products
@@ -16,10 +20,6 @@
             - Controllers
             - Repositories
             - Models
-
-### Instalar
-    - composer run-script install
-    - php artisan serve
 
 ### Padrão Estrutural
 
