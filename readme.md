@@ -21,4 +21,8 @@
     - composer run-script install
     - php artisan serve
 
+### Padrão Estrutural
+
+![](docs/imgs/produtos.png)
+
 Fernando Oliveira - [feroliveira.com.br](http://feroliveira.com.br)
