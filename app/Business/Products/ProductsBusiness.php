@@ -43,8 +43,10 @@ class ProductsBusiness
 
     public function updateProduct(array $dto): int
     {
-        $this->deleteCurrentPicture($dto);
-        
+        if (isset($dto['foto']) && $dto['foto'] instanceof UploadedFile) {
+            $this->deleteCurrentPicture($dto['foto_atual']);
+        }
+
         $picture = new Picture($dto['foto'] ?? $dto['foto_atual'] ?? '');
         $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
 
@@ -55,22 +57,18 @@ class ProductsBusiness
     {
         $product = $this->repository->getProduct($id);
         
-        $this->deleteCurrentPicture($product);
+        $this->deleteCurrentPicture($product['foto']);
 
         return $this->repository->delete($id);
     }
 
-    private function deleteCurrentPicture(array $dto)
+    private function deleteCurrentPicture($foto)
     {
-        if (
-            !isset($dto['foto'])
-            || !$dto['foto'] instanceof UploadedFile
-            || empty($dto['foto_atual'])
-        ) {
+        if (empty($foto)) {
             return;
         }
 
-        $file = explode('/', $dto['foto_atual']);
+        $file = explode('/', $foto);
         Storage::delete($file[1] . '/' . $file[2]);
     }
     
