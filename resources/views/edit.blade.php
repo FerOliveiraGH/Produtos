@@ -15,24 +15,24 @@
                     @endif
                     <form action="/produtos/update" method="POST" enctype="multipart/form-data">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
-                        <input name="id" type="hidden" value="{{ $produto->id }}">
+                        <input name="id" type="hidden" value="{{ $produto['id'] }}">
                         <table>
                             <tr>
                                 <td><label>Nome:</label></td>
-                                <td><input name="nome" value="{{ $produto->nome }}" required></td>
+                                <td><input name="nome" value="{{ $produto['nome'] }}" required></td>
                             </tr>
                             <tr>
                                 <td><label>Descrição:</label></td>
-                                <td><input name="descricao" value="{{ $produto->descricao }}" required></td>
+                                <td><input name="descricao" value="{{ $produto['descricao'] }}" required></td>
                             </tr>
                             <tr>
                                 <td><label>Preço:</label></td>
-                                <td><input name="valor" type="number" value="{{ $produto->valor }}" required></td>
+                                <td><input name="valor" type="number" value="{{ $produto['valor'] }}" required></td>
                             </tr>
                             <tr>
                                 <td><label>Foto:</label></td>
                                 <td><input type='file' name="foto" accept="image/*"/></td>
-                                <input name="foto_atual" type="hidden" value="{{ $produto->foto_atual }}">
+                                <input name="foto_atual" type="hidden" value="{{ $produto['foto_atual'] }}">
                             </tr>
                         </table>
                         <input type="submit" class="btn-default btn" value="Salvar">
