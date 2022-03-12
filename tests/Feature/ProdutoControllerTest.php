@@ -12,17 +12,6 @@ use Tests\TestCase;
 
 class ProdutoControllerTest extends TestCase
 {
-    public function testObterProduto()
-    {
-        $controller = new ProductsController(new ProductsBusiness(new ProductsRepository(new ProductsModel())));
-        $response = $controller->viewProducts();
-        $data = $response->getData();
-
-        $this->assertNotEmpty($data);
-        $this->assertArrayHasKey('produtos', $data);
-        $this->assertNotEmpty($data['produtos']);
-    }
-
     public function testSalvarProduto()
     {
         $controller = new ProductsController(new ProductsBusiness(new ProductsRepository(new ProductsModel())));
@@ -35,5 +24,16 @@ class ProdutoControllerTest extends TestCase
         $response = $controller->createProduct($request);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+    }
+
+    public function testObterProduto()
+    {
+        $controller = new ProductsController(new ProductsBusiness(new ProductsRepository(new ProductsModel())));
+        $response = $controller->viewProducts();
+        $data = $response->getData();
+
+        $this->assertNotEmpty($data);
+        $this->assertArrayHasKey('produtos', $data);
+        $this->assertNotEmpty($data['produtos']);
     }
 }
