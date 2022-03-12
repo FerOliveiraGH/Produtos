@@ -35,7 +35,7 @@ class ProductsBusiness
     
     public function createProduct(array $dto): array
     {
-        $picture = new Picture($dto['foto']);
+        $picture = new Picture($dto['foto'] ?? '');
         $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
         
         return $this->repository->create($this->mountProduct($product));
