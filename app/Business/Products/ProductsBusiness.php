@@ -5,6 +5,7 @@ namespace App\Business\Products;
 use App\Domain\Products\Picture;
 use App\Domain\Products\Product;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ProductsBusiness
@@ -42,7 +43,7 @@ class ProductsBusiness
 
     public function updateProduct(array $dto): int
     {
-        $this->deleteCurrentPicture($dto['foto_atual']);
+        $this->deleteCurrentPicture($dto);
         
         $picture = new Picture($dto['foto'] ?? $dto['foto_atual'] ?? '');
         $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
@@ -54,18 +55,22 @@ class ProductsBusiness
     {
         $product = $this->repository->getProduct($id);
         
-        $this->deleteCurrentPicture($product['foto']);
+        $this->deleteCurrentPicture($product);
 
         return $this->repository->delete($id);
     }
 
-    private function deleteCurrentPicture($foto)
+    private function deleteCurrentPicture(array $dto)
     {
-        if (empty($foto)) {
+        if (
+            !isset($dto['foto'])
+            || !$dto['foto'] instanceof UploadedFile
+            || empty($dto['foto_atual'])
+        ) {
             return;
         }
 
-        $file = explode('/', $foto);
+        $file = explode('/', $dto['foto_atual']);
         Storage::delete($file[1] . '/' . $file[2]);
     }
     
