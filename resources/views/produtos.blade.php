@@ -37,6 +37,7 @@
                         <p>Nenhum Produto encontrado!</p>
                     @endforelse
                 </div>
+                <div class="col-md-12 text-center">{{ $produtos->links() }}</div>
             </div>
         </div>
     </div>

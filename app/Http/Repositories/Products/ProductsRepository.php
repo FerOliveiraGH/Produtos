@@ -44,9 +44,9 @@ class ProductsRepository implements IProductsRepository
         return $response->toArray();
     }
 
-    public function update(array $dto): int
+    public function update(int $id, array $dto): int
     {
-        return $this->model->newQuery()->update($dto);
+        return $this->model->newQuery()->where('id', $id)->update($dto);
     }
     
     public function delete(int $id): ?bool

@@ -36,7 +36,7 @@ class ProductsBusiness
     public function createProduct(array $dto): array
     {
         $picture = new Picture($dto['foto'] ?? '');
-        $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
+        $product = new Product(0, $dto['nome'], $dto['descricao'], $dto['valor'], $picture);
         
         return $this->repository->create($this->mountProduct($product));
     }
@@ -48,9 +48,9 @@ class ProductsBusiness
         }
 
         $picture = new Picture($dto['foto'] ?? $dto['foto_atual'] ?? '');
-        $product = new Product($dto['nome'], $dto['descricao'], $dto['valor'], $picture);
+        $product = new Product($dto['id'], $dto['nome'], $dto['descricao'], $dto['valor'], $picture);
 
-        return $this->repository->update($this->mountProduct($product));
+        return $this->repository->update($product->getId(), $this->mountProduct($product));
     }
     
     public function deleteProduct(int $id): ?bool

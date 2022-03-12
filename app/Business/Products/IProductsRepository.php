@@ -12,7 +12,7 @@ interface IProductsRepository
 
     public function create(array $dto): array;
 
-    public function update(array $dto): int;
+    public function update(int $id, array $dto): int;
     
     public function delete(int $id): ?bool;
 }
